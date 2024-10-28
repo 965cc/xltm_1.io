@@ -3,9 +3,19 @@
     <head>
         <meta charset="utf-8">
         <title>黑色幸存者复活倒计时</title>
+        <style>
+            /* 隐藏默认情况下不希望显示的元素 */
+            #endImage {
+                display: none;
+            }
+        </style>
     </head>
     <body>
         <div id="countdown">加载中...</div>
+        <div id="endImage">
+            <img src="b_821ecb5c900c0062dd94160658de89ac.jpg" alt="我喜欢你">
+            <h1>烟花</h1>
+        </div>
 
         <script>
             // 设置目标时间（2024年10月30日凌晨3点）
@@ -16,7 +26,9 @@
                 var timeRemaining = targetTime - now;
 
                 if (timeRemaining <= 0) {
-                    document.getElementById('countdown').innerHTML = '时间到啦！';
+                    document.getElementById('countdown').innerHTML = '堂堂复活！';
+                    // 倒计时结束后显示图片
+                    document.getElementById('endImage').style.display = 'block';
                     return;
                 }
 
