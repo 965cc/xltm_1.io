@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>黑色幸存者复活倒计时</title>
+    </head>
+    <body>
+        <div id="countdown">加载中...</div>
+
+        <script>
+            // 设置目标时间（2024年10月30日凌晨3点）
+            var targetTime = new Date(2024, 9, 30, 3, 0, 0).getTime();
+
+            function updateCountdown() {
+                var now = new Date().getTime();
+                var timeRemaining = targetTime - now;
+
+                if (timeRemaining <= 0) {
+                    document.getElementById('countdown').innerHTML = '时间到啦！';
+                    return;
+                }
+
+                var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                // 更新页面上的倒计时
+                document.getElementById('countdown').innerHTML = 
+                    String(days).padStart(2, '0') + '天 ' +
+                    String(hours).padStart(2, '0') + '小时 ' +
+                    String(minutes).padStart(2, '0') + '分钟 ' +
+                    String(seconds).padStart(2, '0') + '秒 ';
+
+                // 每秒更新一次
+                setTimeout(updateCountdown, 1000);
+            }
+
+            // 开始倒计时
+            updateCountdown();
+        </script>
+    </body>
+</html>
