@@ -4,13 +4,26 @@
         <meta charset="utf-8">
         <title>黑色幸存者复活倒计时</title>
         <style>
-            /* 隐藏默认情况下不希望显示的元素 */
-            #endImage {
+
+            #endImage,
+            #music-controls {
                 display: none;
             }
         </style>
     </head>
     <body>
+
+        <audio id="background-music">
+            <source src="山花寻海树.mp3" type="audio/mpeg">
+            您的浏览器不支持 HTML5 audio 标签。
+        </audio>
+
+        <div id="music-controls">
+            <button id="play-pause-button">播放</button>
+            <label for="volume-control">音量调节:</label>
+            <input type="range" id="volume-control" min="0" max="1" step="0.1" value="1">
+        </div>
+
         <div id="countdown">加载中...</div>
         <div id="endImage">
             <img src="b_821ecb5c900c0062dd94160658de89ac.jpg" alt="我喜欢你">
@@ -18,7 +31,7 @@
         </div>
 
         <script>
-            // 设置目标时间（2024年10月30日凌晨3点）
+
             var targetTime = new Date(2024, 9, 30, 3, 0, 0).getTime();
 
             function updateCountdown() {
@@ -27,8 +40,12 @@
 
                 if (timeRemaining <= 0) {
                     document.getElementById('countdown').innerHTML = '堂堂复活！';
-                    // 倒计时结束后显示图片
+
                     document.getElementById('endImage').style.display = 'block';
+
+                    document.getElementById('music-controls').style.display = 'block';
+
+                    document.getElementById('background-music').play();
                     return;
                 }
 
@@ -37,18 +54,32 @@
                 var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-                // 更新页面上的倒计时
+
                 document.getElementById('countdown').innerHTML = 
                     String(days).padStart(2, '0') + '天 ' +
                     String(hours).padStart(2, '0') + '小时 ' +
                     String(minutes).padStart(2, '0') + '分钟 ' +
                     String(seconds).padStart(2, '0') + '秒 ';
 
-                // 每秒更新一次
                 setTimeout(updateCountdown, 1000);
             }
 
-            // 开始倒计时
+            document.getElementById('play-pause-button').addEventListener('click', function() {
+                var audio = document.getElementById('background-music');
+                if (audio.paused) {
+                    audio.play();
+                    this.textContent = '暂停';
+                } else {
+                    audio.pause();
+                    this.textContent = '播放';
+                }
+            });
+
+            document.getElementById('volume-control').addEventListener('input', function() {
+                var volume = this.value;
+                document.getElementById('background-music').volume = parseFloat(volume);
+            });
+
             updateCountdown();
         </script>
     </body>
